@@ -1,0 +1,32 @@
+:root {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-top: 10%;
+}
+
+div div {
+    border-style: solid;
+}
+
+.game-board > :nth-child(-n + 3) {
+    border-top: none;
+}
+
+.game-board > :nth-child(n + 7) {
+    border-bottom: none;
+}
+
+.game-board > :nth-child(3n + 1) {
+    border-left: none;
+}
+
+.game-board > :nth-child(3n + 3) {
+    border-right: none;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 5rem);
+    grid-template-rows: repeat(3, 5rem);
+}
