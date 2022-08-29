@@ -1,14 +1,17 @@
 const gameBoard = (() => {
     const gameBoard = Array(9);
-    return {gameBoard};
+    return gameBoard;
 })();
 
 const displayController = (() => {
     const squares = document.querySelectorAll("div[data-number]");
     const gameMove = squares.forEach(square => {
         square.addEventListener('click', () => {
-            square.textContent = 'x';
-            gameBoard.splice(square.dataset.number, 0, square.textContent);
+            if (square.textContent == '') {
+                square.textContent = 'x';
+                let index = square.dataset.number - 1;
+                gameBoard.splice(index, 1, square.textContent);
+            }
         });
     });
     return {gameMove};

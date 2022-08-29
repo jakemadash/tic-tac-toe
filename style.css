@@ -7,6 +7,9 @@
 
 div div {
     border-style: solid;
+    font-size: 5rem;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .game-board > :nth-child(-n + 3) {
@@ -34,3 +37,4 @@ div div {
 .game-board:hover {
     cursor: pointer;
 }
+
