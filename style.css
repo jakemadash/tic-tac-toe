@@ -30,3 +30,7 @@ div div {
     grid-template-columns: repeat(3, 5rem);
     grid-template-rows: repeat(3, 5rem);
 }
+
+.game-board:hover {
+    cursor: pointer;
+}
