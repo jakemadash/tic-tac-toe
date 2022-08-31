@@ -81,7 +81,10 @@ const displayController = (() => {
         }
         else if (playerTwo.won == true) {
             return alert(`${playerTwo.name} won!`);
-        };
+        }
+        else if (playerOne.moves.length + playerTwo.moves.length == 9) {
+            return alert('Tie!');
+        }
     };
     return {winner};
 })();
