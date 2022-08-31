@@ -1,25 +1,13 @@
 'use strict';
 
-const Player = (name, mark) => {
+const Player = (name) => {
     let moves = [];
     let won = false;
-    const squares = document.querySelectorAll("div[data-number]");
-    const play = squares.forEach(square => {
-        square.addEventListener('click', () => {
-            if (square.textContent == '') {
-                square.textContent = mark;
-                let index = square.dataset.number - 1;
-                gameBoard.board.splice(index, 1, square.textContent);
-                moves.push(index);
-                if (moves.length >= 3) {
-                    console.log('wow');
-                    displayController.winner();
-                }
-            }
-        });
-    });
-    return {play, moves, won};
+    return {moves, won, name};
 };
+
+const playerOne = Player(prompt('Player 1 Name:'));
+const playerTwo = Player(prompt('Player 2 Name:'));
 
 const gameBoard = (() => {
     const board = Array(9);
@@ -33,13 +21,37 @@ const gameBoard = (() => {
         [0,4,8],
         [2,4,6]
     ];
-    return {board, winningPositions};
+
+    let count = 0;
+    const squares = document.querySelectorAll("div[data-number]");
+    const play = squares.forEach(square => {
+        square.addEventListener('click', () => {
+            if (square.textContent == '' && count % 2 == 0) {
+                count++;
+                square.textContent = 'x';
+                let index = square.dataset.number - 1;
+                board.splice(index, 1, square.textContent);
+                playerOne.moves.push(index);
+                if (playerOne.moves.length >= 3) {
+                    displayController.winner();
+                }
+            }
+            else if (square.textContent == '' && count % 2 != 0) {
+                count++;
+                square.textContent = 'o';
+                let index = square.dataset.number - 1;
+                board.splice(index, 1, square.textContent);
+                playerTwo.moves.push(index);
+                if (playerTwo.moves.length >= 3) {
+                    displayController.winner();
+                }
+            }
+        });
+    });
+    return {board, winningPositions, play};
 })();
 
 const displayController = (() => {
-    const playerOne = Player(prompt('Player 1 Name:'), 'x');
-    const playerTwo = Player(prompt('Player 2 Name:'), 'o');
-
     const winner = () => {
         const winning = gameBoard.winningPositions;
         let playerOneCount = 0;
@@ -64,15 +76,12 @@ const displayController = (() => {
                 playerTwoCount = 0;
             }
         }
-        if (playerOne.won == true || playerTwo.won == true) {
-            return true;
+        if (playerOne.won == true) {
+            return alert(`${playerOne.name} won!`);
         }
-        else return false;
+        else if (playerTwo.won == true) {
+            return alert(`${playerTwo.name} won!`);
         };
-
-    while (winner() == undefined) {
-        playerOne.play;
-        playerTwo.play;
-    }
-    return {playerOne, playerTwo, winner};
+    };
+    return {winner};
 })();
