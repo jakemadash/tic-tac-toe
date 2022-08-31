@@ -1,3 +1,5 @@
+'use strict';
+
 const Player = (name, mark) => {
     let moves = [];
     let won = false;
@@ -10,16 +12,14 @@ const Player = (name, mark) => {
                 gameBoard.board.splice(index, 1, square.textContent);
                 moves.push(index);
                 if (moves.length >= 3) {
-                    gameBoard.winner();
+                    console.log('wow');
+                    displayController.winner();
                 }
             }
         });
     });
     return {play, moves, won};
 };
-
-const playerOne = Player(prompt('Player 1 Name:'), 'x');
-const playerTwo = Player(prompt('Player 2 Name:'), 'o');
 
 const gameBoard = (() => {
     const board = Array(9);
@@ -33,15 +33,23 @@ const gameBoard = (() => {
         [0,4,8],
         [2,4,6]
     ];
+    return {board, winningPositions};
+})();
+
+const displayController = (() => {
+    const playerOne = Player(prompt('Player 1 Name:'), 'x');
+    const playerTwo = Player(prompt('Player 2 Name:'), 'o');
+
     const winner = () => {
+        const winning = gameBoard.winningPositions;
         let playerOneCount = 0;
         let playerTwoCount = 0;
-        for (let i = 0; i < winningPositions.length; i++) {
-            for (let j = 0; j < winningPositions[i].length; j++) {
-                if (playerOne.moves.includes(winningPositions[i][j])) {
+        for (let i = 0; i < winning.length; i++) {
+            for (let j = 0; j < winning[i].length; j++) {
+                if (playerOne.moves.includes(winning[i][j])) {
                     playerOneCount++;
                 }
-                else if (playerTwo.moves.includes(winningPositions[i][j])) {
+                else if (playerTwo.moves.includes(winning[i][j])) {
                     playerTwoCount++;
                 }
             }
@@ -56,11 +64,15 @@ const gameBoard = (() => {
                 playerTwoCount = 0;
             }
         }
+        if (playerOne.won == true || playerTwo.won == true) {
+            return true;
+        }
+        else return false;
         };
-    return {board, winner};
-})();
 
-const displayController = (() => {
-    playerOne.play;
-    return {playerOne, playerTwo};
+    while (winner() == undefined) {
+        playerOne.play;
+        playerTwo.play;
+    }
+    return {playerOne, playerTwo, winner};
 })();
