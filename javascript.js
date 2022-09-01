@@ -6,8 +6,8 @@ const Player = (name) => {
     return {moves, won, name};
 };
 
-const playerOne = Player(prompt('Player 1 Name:'));
-const playerTwo = Player(prompt('Player 2 Name:'));
+const playerOne = Player(document.getElementById('player1').value);
+const playerTwo = Player(document.getElementById('player2').value);
 
 const gameBoard = (() => {
     const board = Array(9);
@@ -88,5 +88,25 @@ const displayController = (() => {
             button.removeAttribute('hidden');
         }
     };
+    const playerOneName = document.getElementById('player1');
+    const playerTwoName = document.getElementById('player2');
+    const start = document.querySelector('button');
+    const nextPlayer = playerOneName.addEventListener('keydown', (e) => {
+        if (e.key == 'Enter') {
+            playerTwoName.focus();
+        }
+        else if (playerTwoName.value != '' && playerOneName.value != '') {
+            start.removeAttribute('hidden');
+        }
+        else if (playerTwoName.value == '' || playerOneName.value == '')
+            start.setAttribute('hidden', '');
+    });
+    const startGame = playerTwoName.addEventListener('keydown', () => {
+        if (playerTwoName.value != '' && playerOneName.value != '') {
+            start.removeAttribute('hidden');
+        }
+        else if (playerTwoName.value == '' || playerOneName.value == '')
+            start.setAttribute('hidden', '');
+    })
     return {winner};
 })();

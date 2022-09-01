@@ -10,16 +10,17 @@
 </head>
 <body>  
     <div class="paper">
-        <div class="players">
+        <form class="players">
             <div>
                 <label for="player1">Player One</label><br>
                 <input type="text" id="player1" autofocus><br>
             </div>
             <div>
-                <label for="player1">Player Two</label><br>
-                <input type="text" id="player1"><br>
+                <label for="player2">Player Two</label><br>
+                <input type="text" id="player2"><br>
             </div>
-        </div>
+        </form>
+        <button hidden>Start Game</button>
         <div class="container">
             <div class="game-board">
                 <div data-number="1"></div>
@@ -34,6 +35,5 @@
             </div>
         </div>
     </div>
-    <button hidden>Win!</button>
 </body>
 </html>
