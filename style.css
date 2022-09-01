@@ -1,9 +1,12 @@
 :root {
     background-color: rgb(93, 64, 50);
+    margin: 0;
+    padding: 0;
 }
 
 input {
     height: 1.7rem;
+    width: 10rem;
     background-color: transparent;
     font-size: 1.3rem;
     margin-top: 14px;
