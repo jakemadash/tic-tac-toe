@@ -1,12 +1,18 @@
 :root {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    padding-top: 10%;
+    background-color: rgb(93, 64, 50);
 }
 
-div div {
+.paper {
+    display: flex;
+    justify-content: center;
+    margin: 1% 25%;
+    height: 95vh;
+    background: center / contain url(notebook-page.jpg);
+}
+
+div div div {
     border-style: solid;
+    border-width: 2px;
     font-size: 5rem;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
@@ -32,9 +38,15 @@ div div {
     display: grid;
     grid-template-columns: repeat(3, 5rem);
     grid-template-rows: repeat(3, 5rem);
+    margin-top: 18%;
+    margin-left: 15%;
 }
 
 .game-board:hover {
     cursor: pointer;
 }
 
+.blue-line {
+    border-top: 2px solid blue;
+    border-bottom: 2px solid blue;
+}

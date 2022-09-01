@@ -37,8 +37,8 @@ const gameBoard = (() => {
                 }
             }
             else if (square.textContent == '' && count % 2 != 0) {
-                count++;
                 square.textContent = 'o';
+                count++;
                 let index = square.dataset.number - 1;
                 board.splice(index, 1, square.textContent);
                 playerTwo.moves.push(index);
@@ -77,13 +77,15 @@ const displayController = (() => {
             }
         }
         if (playerOne.won == true) {
-            return alert(`${playerOne.name} won!`);
+            let button = document.querySelector('button');
+            button.removeAttribute('hidden');
         }
         else if (playerTwo.won == true) {
-            return alert(`${playerTwo.name} won!`);
+            button.removeAttribute('hidden');
         }
         else if (playerOne.moves.length + playerTwo.moves.length == 9) {
-            return alert('Tie!');
+            let button = document.querySelector('button');
+            button.removeAttribute('hidden');
         }
     };
     return {winner};
