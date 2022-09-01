@@ -26,7 +26,7 @@ const gameBoard = (() => {
     const squares = document.querySelectorAll("div[data-number]");
     const play = squares.forEach(square => {
         square.addEventListener('click', () => {
-            if (square.textContent == '' && count % 2 == 0) {
+            if (square.textContent == '' && count % 2 == 0 && playerOne.name != '') {
                 count++;
                 square.textContent = 'x';
                 let index = square.dataset.number - 1;
@@ -36,7 +36,7 @@ const gameBoard = (() => {
                     displayController.winner();
                 }
             }
-            else if (square.textContent == '' && count % 2 != 0) {
+            else if (square.textContent == '' && count % 2 != 0 && playerTwo.name != '') {
                 square.textContent = 'o';
                 count++;
                 let index = square.dataset.number - 1;
@@ -101,12 +101,21 @@ const displayController = (() => {
         else if (playerTwoName.value == '' || playerOneName.value == '')
             start.setAttribute('hidden', '');
     });
-    const startGame = playerTwoName.addEventListener('keydown', () => {
+    const initialize = playerTwoName.addEventListener('keydown', () => {
         if (playerTwoName.value != '' && playerOneName.value != '') {
             start.removeAttribute('hidden');
         }
         else if (playerTwoName.value == '' || playerOneName.value == '')
             start.setAttribute('hidden', '');
+    })
+    const startGame = start.addEventListener('click', () => {
+        start.setAttribute('hidden', '');
+        playerOne.name = playerOneName.value;
+        playerTwo.name = playerTwoName.value;
+        const board = document.querySelectorAll('div[data-number]');
+        board.forEach(item => {
+            item.setAttribute('style', 'border-style:solid');
+        });
     })
     return {winner};
 })();
