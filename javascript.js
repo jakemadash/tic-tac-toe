@@ -48,14 +48,16 @@ const gameBoard = (() => {
             }
         });
     });
-    return {board, winningPositions, play};
+    return {board, winningPositions, play, squares};
 })();
 
 const displayController = (() => {
     const winner = () => {
         const winning = gameBoard.winningPositions;
+        const message = document.getElementById('message');
         let playerOneCount = 0;
         let playerTwoCount = 0;
+        const start = document.querySelector('button');
         for (let i = 0; i < winning.length; i++) {
             for (let j = 0; j < winning[i].length; j++) {
                 if (playerOne.moves.includes(winning[i][j])) {
@@ -77,15 +79,16 @@ const displayController = (() => {
             }
         }
         if (playerOne.won == true) {
-            let button = document.querySelector('button');
-            button.removeAttribute('hidden');
+            start.removeAttribute('hidden');
+            message.textContent = `${playerOne.name} wins!`
         }
         else if (playerTwo.won == true) {
-            button.removeAttribute('hidden');
+            start.removeAttribute('hidden');
+            message.textContent = `${playerTwo.name} wins!`
         }
         else if (playerOne.moves.length + playerTwo.moves.length == 9) {
-            let button = document.querySelector('button');
-            button.removeAttribute('hidden');
+            start.removeAttribute('hidden');
+            message.textContent = `It's a tie!`
         }
     };
     const playerOneName = document.getElementById('player1');
@@ -109,6 +112,13 @@ const displayController = (() => {
             start.setAttribute('hidden', '');
     })
     const startGame = start.addEventListener('click', () => {
+        if (message.textContent != '') {
+            message.textContent = '';
+            gameBoard.board = Array(9);
+            gameBoard.squares.forEach(square => {
+                square.textContent = '';
+            });
+        }
         start.setAttribute('hidden', '');
         playerOne.name = playerOneName.value;
         playerTwo.name = playerTwoName.value;
